@@ -15,14 +15,26 @@
         <div class="create-window" id="create-window">
             <div class="background"></div>
             <div name="new-book" class="form-container">            <div class="title">New Book</div>
-            <label for="title"><input type="text" name="title" id="title" placeholder="Title"></label>
-            <label for="author"><input type="text" name="author" id="author" placeholder="Author"></label>
-            <label for="pages"><input type="number" name="pages" id="pages" placeholder="Pages"></label>
+            <label for="title"><input type="text" name="title" id="title" maxlength="33" placeholder="Title"></label>
+            <label for="author"><input type="text" name="author" id="author" maxlength="33" placeholder="Author"></label>
+            <label for="pages"><input class="pages" type="number" name="pages" id="pages" placeholder="Pages" min="1" max="10000"></label>
             <label class="container" for="read">Read <input class="checkbox" type="checkbox" name="read" id="read"><span class="checkmark"></span></label>
-            <button class="atl" for="new-book">Add to Library</button>
+            <button class="atl" id="addBookButton" for="new-book">Add to Library</button>
             </div>
         </div>
+        <div class="books-place" id="booksPlace">
+            <div class="books">
+                <ul>
+                    <div class="book-title">Example</div>
+                    <div class="author">By - Shono</div>
+                    <div class="book-pages">Pages: 1</div>
+                    <button class="book-read">Read</button>
+                    <button class="delete-button">Delete</button>
+                    <div class="book-status">Completed</div>
+                </ul>
+
+        </div>
     </div>
-    <script src="script.js"></script> <!-- Include your JavaScript file -->
+    <script src="script.js"></script>
 </body>
 </html>
