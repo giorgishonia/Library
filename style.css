@@ -65,6 +65,7 @@ body{
     display: block;
     /* Initialize to block */
     transition: right 0.3s ease-in-out;
+    z-index: 5;
 }
 
 .books-area {
@@ -80,7 +81,7 @@ body{
     width: 30vw;
     border: 2px solid rgba(0, 0, 0, 0.6);
     right: -100%;
-    transition: right 0.3s ease-in-out;
+    transition: right 0.7s ease-in-out;
     display: block;
 }
 
@@ -89,6 +90,7 @@ body{
     position: absolute;
     width: 30vw;
     right: 0;
+    backdrop-filter: blur(5px);
     background-color: rgba(0, 0, 0, 0.6);
     z-index: -1;
 }
@@ -110,6 +112,7 @@ body{
     flex-direction: column;
     align-items: center;
     padding: 10px;
+
 }
 
 input{
@@ -219,15 +222,17 @@ label{
     grid-template-columns: 0fr 0fr 0fr 0fr 0fr; 
     padding: 40px;
     gap: 40px;
+    margin-left: 20px;
 }
 
 .books{
-    height: 270px;
+    height: 262px;
     width: 250px;
     background-color: #040D12;
     border-radius: 20px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.452);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .book-title{
@@ -293,4 +298,16 @@ label{
 
 hr{
     margin-top: 15px;
+}
+
+.notification{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #93B1A6;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    display: block;
+    transition: opacity 0.5s;
 }

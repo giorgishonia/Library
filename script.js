@@ -1,10 +1,10 @@
 const plusButton = document.getElementById('plus');
-let isCreateWindowVisible = false; // Flag to track visibility
+let isCreateWindowVisible = false;
+let notification = document.getElementById('notification');
 
 plusButton.addEventListener('click', function () {
     const createWindow = document.getElementById('create-window');
 
-    // Toggle the visibility and rotation
     if (!isCreateWindowVisible) {
         createWindow.style.right = '0';
         plusButton.classList.add('clicked');
@@ -13,17 +13,16 @@ plusButton.addEventListener('click', function () {
         plusButton.classList.remove('clicked');
     }
 
-    // Toggle the flag
     isCreateWindowVisible = !isCreateWindowVisible;
 });
 
 var addBookButton = document.getElementById("addBookButton");
 var createWindow = document.getElementById("create-window");
-var booksPlace = document.getElementById("booksPlace"); // Add this line
-
+var booksPlace = document.getElementById("booksPlace");
 function createBooksDiv(title, author, pages, read) {
     var newBookDiv = document.createElement("div");
     newBookDiv.className = "books";
+    newBookDiv.style.opacity = "0"; // Initially invisible
 
     var titleDiv = document.createElement("div");
     titleDiv.className = "book-title";
@@ -58,16 +57,42 @@ function createBooksDiv(title, author, pages, read) {
 
     booksPlace.appendChild(newBookDiv);
 
-    // Add event listener for the delete button
+    // Add a slight delay to make the book visible with a transition
+    setTimeout(function () {
+        newBookDiv.style.opacity = "1";
+    }, 50);
+
     deleteButton.addEventListener("click", function () {
-        newBookDiv.remove();
+        // Add a slight delay before removing the book
+        setTimeout(function () {
+            newBookDiv.remove();
+            // Check if there are books in the library and add a transition
+            setTimeout(checkBooksAndNotification, 50);
+        }, 50);
     });
 
-    // Add event listener for the read button
     readButton.addEventListener("click", function () {
         read = !read;
         statusDiv.textContent = read ? "Completed" : "On progress";
     });
+}
+
+function checkBooksAndNotification() {
+    var books = booksPlace.querySelectorAll(".books");
+    if (books.length === 0) {
+        // If there are no books, show the notification with a transition
+        notification.style.display = "block";
+        setTimeout(function () {
+            notification.style.opacity = "1";
+        }, 50);
+    } else {
+        // If there is at least one book, hide the notification with a transition
+        notification.style.opacity = "0";
+        // Add a slight delay before hiding the notification
+        setTimeout(function () {
+            notification.style.display = "none";
+        }, 500);
+    }
 }
 
 addBookButton.addEventListener("click", function () {
@@ -82,6 +107,8 @@ addBookButton.addEventListener("click", function () {
     }
 
     createBooksDiv(title, author, pages, read);
+    // Check if there are books in the library and add a transition
+    checkBooksAndNotification();
 
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
@@ -93,19 +120,17 @@ addBookButton.addEventListener("click", function () {
     }, 500);
 });
 
-// Add event delegation for delete and read buttons
 booksPlace.addEventListener("click", function (event) {
     if (event.target.classList.contains("delete-button")) {
         var bookDiv = event.target.closest(".books");
         if (bookDiv) {
-            bookDiv.remove();
+            // Add a slight delay before removing the book
+            setTimeout(function () {
+                bookDiv.remove();
+                // Check if there are books in the library and add a transition
+                setTimeout(checkBooksAndNotification, 50);
+            }, 50);
         }
-    }
-
-    if (event.target.classList.contains("book-read")) {
-        var statusDiv = event.target.nextElementSibling; // Get the status div
-        var read = statusDiv.textContent === "On progress";
-        statusDiv.textContent = read ? "Completed" : "On progress";
     }
 });
 
